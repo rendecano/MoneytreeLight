@@ -19,5 +19,6 @@ class AccountDataRepository @Inject constructor(private val accountRemoteSource:
             this.name,
             this.currency,
             this.currentBalance,
-            this.currentBalanceInBase)
+            this.currentBalanceInBase,
+            this.institution)
 }

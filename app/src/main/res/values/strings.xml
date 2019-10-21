@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Moneytree Light</string>
+
+    <string name="cd_account_total">Accounts total</string>
+    <string name="cd_account_list">Accounts list</string>
+
+    <string name="cd_account_name">Account name</string>
+    <string name="cd_account_balance">Account balance</string>
+
+    <string name="cd_loading_animation">Loading animation</string>
+
+    <string name="cd_transaction_list">Transactions list</string>
 </resources>

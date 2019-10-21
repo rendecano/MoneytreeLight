@@ -15,7 +15,7 @@ class GetAccountsList @Inject constructor(private val accountRepository: Account
             // business requirements (i.e. if user session is in place, userId isn't needed)
             Either.Right(accountRepository.getAccountsList())
         } catch (exception: Exception) {
-            Either.Left(Failure.FeatureFailure())
+            Either.Left(Failure.FeatureFailure(exception))
         }
     }
 

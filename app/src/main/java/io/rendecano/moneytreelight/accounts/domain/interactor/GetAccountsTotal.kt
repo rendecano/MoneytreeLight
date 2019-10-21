@@ -19,7 +19,7 @@ class GetAccountsTotal @Inject constructor(private val accountRepository: Accoun
             Either.Right(AccountTotal(defaultAccountCurrency, accountTotal))
 
         } catch (exception: Exception) {
-            Either.Left(Failure.FeatureFailure())
+            Either.Left(Failure.FeatureFailure(exception))
         }
     }
 

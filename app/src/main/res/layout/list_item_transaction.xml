@@ -33,11 +33,12 @@
             android:id="@+id/txt_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{transaction.description}"
             android:paddingStart="@dimen/grid_8"
             android:paddingEnd="@dimen/grid_8"
+            android:text="@{transaction.description}"
             android:textSize="@dimen/txt_size_18"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txt_balance"
             app:layout_constraintStart_toEndOf="@id/txt_day"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="マークからカード" />

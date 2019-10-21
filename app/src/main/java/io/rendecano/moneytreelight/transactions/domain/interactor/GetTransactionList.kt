@@ -10,10 +10,11 @@ import javax.inject.Inject
 class GetTransactionList @Inject constructor(private val transactionRepository: TransactionRepository) : BaseUseCase<List<Transaction>, GetTransactionList.Params>() {
     override suspend fun run(params: Params?): Either<Failure, List<Transaction>> {
         return try {
-            val result = transactionRepository.getTransactions(params!!.accountId).sortedByDescending { it.date }
+            val result = transactionRepository.getTransactions(params!!.accountId)
+                    .sortedByDescending { it.date }
             Either.Right(result)
         } catch (exception: Exception) {
-            Either.Left(Failure.FeatureFailure())
+            Either.Left(Failure.FeatureFailure(exception))
         }
     }
 

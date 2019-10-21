@@ -22,7 +22,7 @@ class AppBindingModule {
 //    @Provides
 //    @Singleton
 //    internal fun provideDatabase(context: Context): AppDatabase =
-//            Room.databaseBuilder(context, AppDatabase::class.java, "io.rendecano.stox.db")
+//            Room.databaseBuilder(context, AppDatabase::class.java, "io.rendecano.moneytree.db")
 //                    .fallbackToDestructiveMigration()
 //                    .build()
 }

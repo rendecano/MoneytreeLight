@@ -18,21 +18,39 @@
         android:layout_height="@dimen/row_height"
         android:background="@color/colorBackground">
 
-        <TextView
-            android:id="@+id/txt_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{account.name}"
-            android:textSize="@dimen/txt_size_18"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="マークからカード" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/cd_account_name"
+                android:text="@{account.name}"
+                android:textSize="@dimen/txt_size_18"
+                android:textStyle="bold"
+                tools:text="マークからカード" />
+
+            <TextView
+                android:id="@+id/txt_institution_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/cd_account_name"
+                android:text="@{account.institutionName}"
+                android:textSize="@dimen/txt_size_16"
+                tools:text="Starbucks coffee" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/cd_account_balance"
             android:text="@{account.currency + account.currentBalance}"
             android:textSize="@dimen/txt_size_18"
             app:layout_constraintBottom_toBottomOf="parent"

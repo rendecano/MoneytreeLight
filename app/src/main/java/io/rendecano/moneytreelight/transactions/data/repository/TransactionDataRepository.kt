@@ -4,6 +4,8 @@ import io.rendecano.moneytreelight.transactions.data.remote.TransactionRemoteSou
 import io.rendecano.moneytreelight.transactions.data.remote.model.TransactionRemote
 import io.rendecano.moneytreelight.transactions.domain.model.Transaction
 import io.rendecano.moneytreelight.transactions.domain.repository.TransactionRepository
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class TransactionDataRepository @Inject constructor(private val transactionRemoteSource: TransactionRemoteSource) : TransactionRepository {
@@ -20,7 +22,14 @@ class TransactionDataRepository @Inject constructor(private val transactionRemot
             Transaction(this.accountId,
                     this.amount,
                     this.categoryId,
-                    this.date,
+                    this.date.formatDate(),
                     this.description,
                     this.id)
+
+    private fun String.formatDate() : String {
+        val fmt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
+        val date = fmt.parse(this)
+        val fmtOut = SimpleDateFormat("MMM d", Locale.getDefault())
+        return  fmtOut.format(date)
+    }
 }

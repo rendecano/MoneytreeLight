@@ -1,37 +1,34 @@
-package io.rendecano.moneytreelight.accounts.presentation.ui
+package io.rendecano.moneytreelight.transactions.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.rendecano.moneytreelight.R
-import io.rendecano.moneytreelight.accounts.presentation.adapter.AccountsListAdapter
-import io.rendecano.moneytreelight.accounts.presentation.viewmodel.AccountsListViewModel
+import io.rendecano.moneytreelight.accounts.presentation.ui.ACCOUNT_ID_KEY
 import io.rendecano.moneytreelight.common.di.Injectable
-import io.rendecano.moneytreelight.databinding.FragmentAccountsListBinding
+import io.rendecano.moneytreelight.databinding.FragmentTransactionsListBinding
+import io.rendecano.moneytreelight.transactions.presentation.adapter.TransactionsListAdapter
+import io.rendecano.moneytreelight.transactions.presentation.viewmodel.TransactionListViewModel
 import javax.inject.Inject
 
-const val ACCOUNT_ID_KEY = "account_id_key"
-
-class AccountsListFragment : Fragment(), Injectable {
+class TransactionListFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: AccountsListViewModel
-    private lateinit var mAdapter: AccountsListAdapter
-    private lateinit var viewBinding: FragmentAccountsListBinding
+    private lateinit var viewModel: TransactionListViewModel
+    private lateinit var mAdapter: TransactionsListAdapter
+    private lateinit var viewBinding: FragmentTransactionsListBinding
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -39,42 +36,32 @@ class AccountsListFragment : Fragment(), Injectable {
             savedInstanceState: Bundle?
     ): View? {
         viewBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_accounts_list, container, false)
+                inflater, R.layout.fragment_transactions_list, container, false)
         viewBinding.lifecycleOwner = this
         return viewBinding.root
-    }
-
-    private val selectListener = object : AccountsListAdapter.OnSelectListener {
-        override fun onSelect(accountId: Long) {
-            findNavController().navigate(R.id.action_accountsListFragment_to_transactionListFragment, bundleOf(ACCOUNT_ID_KEY to accountId))
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mAdapter = AccountsListAdapter(this, selectListener)
+        mAdapter = TransactionsListAdapter(this)
         val mLayoutManager = LinearLayoutManager(activity)
-        viewBinding.recyclerViewAccount.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-        viewBinding.recyclerViewAccount.layoutManager = mLayoutManager
-        viewBinding.recyclerViewAccount.adapter = mAdapter
+        viewBinding.recyclerViewTransactions.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        viewBinding.recyclerViewTransactions.layoutManager = mLayoutManager
+        viewBinding.recyclerViewTransactions.adapter = mAdapter
 
         initModel()
     }
 
     private fun initModel() {
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(AccountsListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TransactionListViewModel::class.java)
 
-        viewModel.accountsList.observe { list ->
+        viewModel.transactions.observe { list ->
             list.let {
                 viewBinding.loading = list?.isNullOrEmpty()
                 mAdapter.setData(ArrayList(it ?: listOf()))
             }
-        }
-
-        viewModel.accountsTotal.observe {
-            viewBinding.accountTotal = it
         }
 
         viewModel.error.observe {
@@ -86,7 +73,8 @@ class AccountsListFragment : Fragment(), Injectable {
         }
 
         // Invoke get accounts
-        viewModel.getAccounts()
+        val accountId = arguments?.getLong(ACCOUNT_ID_KEY) ?: 0
+        viewModel.getTransactions(accountId)
     }
 
     private fun <T> LiveData<T>.observe(observe: (T?) -> Unit) =
