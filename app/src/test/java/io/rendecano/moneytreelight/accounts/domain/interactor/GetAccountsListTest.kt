@@ -49,7 +49,7 @@ class GetAccountsListTest {
     }
 
     @Test
-    fun `test get accounts total with valid accounts`() {
+    fun `test get accounts list with valid accounts`() {
         runBlocking {
             val accountOne = Account(name = "Starbucks card", currency = "USD", currentBalance = 200.50)
             val accountTwo = Account(name = "Woolies card", currency = "JPY", currentBalance = 134.80)
