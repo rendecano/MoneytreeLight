@@ -12,7 +12,7 @@ class AccountDataRepository @Inject constructor(private val accountRemoteSource:
 
         val accountRemoteList = accountRemoteSource.getAccountsList()
         // TODO: Save account list to local repository
-        return accountRemoteList.accountRemoteList.map { it.toAccount() }
+        return accountRemoteList.accounts.map { it.toAccount() }
     }
 
     private fun AccountRemote.toAccount() = Account(this.id,

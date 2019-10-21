@@ -1,7 +1,8 @@
 package io.rendecano.moneytreelight
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 
 class MainActivity : AppCompatActivity() {
 
@@ -9,4 +10,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+    override fun onSupportNavigateUp() = findNavController(R.id.mainNavigationFragment).navigateUp()
 }
