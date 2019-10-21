@@ -42,7 +42,7 @@ class AccountsListFragment : Fragment(), Injectable {
 
     private val selectListener = object : AccountsListAdapter.OnSelectListener {
         override fun onSelect(accountId: Long) {
-            
+
         }
     }
 
