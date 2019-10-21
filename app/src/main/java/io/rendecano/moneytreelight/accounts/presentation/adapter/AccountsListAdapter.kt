@@ -10,7 +10,7 @@ import io.rendecano.moneytreelight.databinding.ListItemAccountBinding
 
 class AccountsListAdapter(private val bindingLifecycleOwner: LifecycleOwner,
                           private val selectListener: OnSelectListener) :
-        RecyclerView.Adapter<AccountsListAdapter.StockViewHolder>() {
+        RecyclerView.Adapter<AccountsListAdapter.AccountViewHolder>() {
 
     private val accountList = ArrayList<Account>()
 
@@ -18,12 +18,12 @@ class AccountsListAdapter(private val bindingLifecycleOwner: LifecycleOwner,
         fun onSelect(accountId: Long)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return StockViewHolder(ListItemAccountBinding.inflate(inflater, parent, false))
+        return AccountViewHolder(ListItemAccountBinding.inflate(inflater, parent, false))
     }
 
-    override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AccountViewHolder, position: Int) {
         holder.binding.apply {
             lifecycleOwner = bindingLifecycleOwner
             account = accountList[position]
@@ -39,7 +39,7 @@ class AccountsListAdapter(private val bindingLifecycleOwner: LifecycleOwner,
         return accountList.size
     }
 
-    class StockViewHolder(val binding: ListItemAccountBinding) : RecyclerView.ViewHolder(binding.root)
+    class AccountViewHolder(val binding: ListItemAccountBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemViewType(position: Int): Int {
         return R.layout.list_item_account

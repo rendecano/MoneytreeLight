@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.rendecano.moneytreelight.R
@@ -42,20 +43,22 @@ class AccountsListFragment : Fragment(), Injectable {
 
     private val selectListener = object : AccountsListAdapter.OnSelectListener {
         override fun onSelect(accountId: Long) {
-
+            findNavController().navigate(R.id.action_accountsListFragment_to_transactionListFragment, Bundle().apply {
+                putLong("ACCOUNT_ID", accountId)
+            })
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        initModel()
-
         mAdapter = AccountsListAdapter(this, selectListener)
         val mLayoutManager = LinearLayoutManager(activity)
         viewBinding.recyclerViewAccount.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         viewBinding.recyclerViewAccount.layoutManager = mLayoutManager
         viewBinding.recyclerViewAccount.adapter = mAdapter
+
+        initModel()
     }
 
     private fun initModel() {

@@ -5,8 +5,10 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
 import io.rendecano.moneytreelight.MoneytreeLightApplication
+import io.rendecano.moneytreelight.accounts.di.AccountBindingModule
 import io.rendecano.moneytreelight.accounts.di.AccountModule
-import io.rendecano.stox.list.di.AccountBindingModule
+import io.rendecano.moneytreelight.transactions.data.remote.impl.TransactionModule
+import io.rendecano.moneytreelight.transactions.di.TransactionBindingModule
 import javax.inject.Singleton
 
 @Singleton
@@ -16,7 +18,9 @@ import javax.inject.Singleton
             (AppModule::class),
             (AppBindingModule::class),
             (AccountModule::class),
-            (AccountBindingModule::class)
+            (AccountBindingModule::class),
+            (TransactionModule::class),
+            (TransactionBindingModule::class)
         ]
 )
 interface AppComponent {

@@ -1,4 +1,4 @@
-package io.rendecano.stox.list.di
+package io.rendecano.moneytreelight.accounts.di
 
 import android.content.Context
 import com.google.gson.Gson
